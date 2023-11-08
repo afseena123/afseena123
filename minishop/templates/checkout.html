@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+ 
+
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-10 ftco-animate">
+          <form method="post" action="checkout" class="billing-form">
+            {% csrf_token %}
+            <h3 class="mb-4 billing-heading">Billing Details</h3>
+            <div class="row align-items-end">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="firstname">First Name</label>
+                  <input type="text" name="firstname" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="lastname">Last Name</label>
+                  <input type="text" name="lastname" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="Country">Country</label>
+                <input type="text" name="Country" class="form-control" placeholder="">
+              </div>
+
+
+
+
+              
+              <div class="w-100"></div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="streetaddress">Street Address</label>
+                  <input type="text" name="streetaddress" class="form-control" placeholder="House number and street name">
+                </div>
+              </div>
+              
+              <div class="w-100"></div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="towncity">Town / City</label>
+                  <input type="text" name="towncity" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="postcodezip">Postcode / ZIP *</label>
+                  <input type="text" name="postcodezip" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="w-100"></div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" name="phone" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="emailaddress">Email Address</label>
+                  <input type="email" name="emailaddress" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="w-100"></div>
+              <div class="col-md-12">
+                <div class="form-group mt-4">
+                  <div class="radio">
+                    <label class="mr-3">
+                      <input type="radio" name="create_account"> Create an Account?
+                    </label>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- END -->
+
+          <!-- Product Cart Section -->
+          <!-- <div class="cart-detail bg-light p-3 p-md-4">
+            <h3 class="billing-heading mb-4">Product Cart</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in cartitem %}
+                <tr>
+                  <td>{{ item.product.name }}</td>
+                  <td>${{ item.product.price }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>${{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div> -->
+          <!-- End Product Cart Section -->
+
+          <!-- Cart Total Section -->
+          <!-- <div class="cart-total bg-light p-3 p-md-4">
+            <h3 class="billing-heading mb-4">Cart Total</h3>
+            <p class="d-flex">
+              <span>Subtotal</span>
+              <span>${{ cart_subtotal }}</span>
+            </p>
+            <p class="d-flex">
+              <span>Delivery</span>
+              <span>${{ cart_delivery }}</span>
+            </p>
+            <p class="d-flex">
+              <span>Discount</span>
+              <span>${{ cart_discount }}</span>
+            </p>
+            <hr>
+            <p class="d-flex total-price">
+              <span>Total</span>
+
+
+              <span>${{ cart_total }}</span>
+            </p>
+          </div> -->
+          <!-- End Cart Total Section -->
+          <p>Total: ${{ t }}</p>
+          <p>Number of Items: {{ cn }}</p>
+          
+          <!-- Payment Method Section -->
+          <div class="cart-detail bg-light p-3 p-md-4">
+            <h3 class="billing-heading mb-4">Payment Method</h3>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="payment_method" value="Direct Bank Transfer" class="mr-2">
+                    Direct Bank Transfer
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="payment_method" value="Check Payment" class="mr-2">
+                    Check Payment
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="payment_method" value="Paypal" class="mr-2">
+                    Paypal
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="accept_terms" value="true" class="mr-2">
+                    I have read and accept the terms and conditions
+                  </label>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+          <p class="text-center"><a href="{% url 'payment' %}" class="btn btn-primary py-2 px-2">place an order</a></p>
+          <button type="button" class="btn btn-success N-100 mt-2">Pay with online</button>
+
+        </div>
+          </div>
+          <!-- End Payment Method Section -->
+        </div>
+      </div>
+    </div>
+  </form>
+  </section>
+{% endblock %}

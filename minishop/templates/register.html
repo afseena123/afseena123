@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Your existing CSS styles for the login form */
+  .login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .login-image {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .login-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .login-form, .register-form {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9a82630;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .login-form h2, .register-form h2 {
+    margin-bottom: 20px;
+  }
+
+  .login-form label, .register-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .login-form input[type="text"], .login-form input[type="password"], .register-form input[type="text"], .register-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .login-form button, .register-form button {
+    background-color: #f7c87c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  /* Add some space at the top of the registration form */
+  .register-form {
+    margin-top: 50px; /* Adjust the value as needed */
+  }
+</style>
+
+<div class="login-container">
+  <div class="login-image">
+    <img src="{% static 'images/log.png' %}" alt="Login Image">
+  </div>
+  <div class="register-form">
+    <h2>Register</h2>
+    <form method="POST" action="loadregister">
+      {% csrf_token %}
+      <label for="first_name">First Name:</label>
+      <input type="text" id="fname" name="fname" placeholder="Enter your First Name" required><br>
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="lname" name="lname" placeholder="ENter your Last Name" required><br>
+      <label for="new_username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter your Username" required><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your Email ID" required><br>
+      <label for="new_password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter a strong Password[0-9,@#$&*,a-z,A-Z] "><br>
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" id="cpassword" name="cpassword"  placeholder="Re-enter your password"><br>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

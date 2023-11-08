@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_6.jpg' %});">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+            <h1 class="mb-0 bread">My Wishlist</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>&nbsp;</th>
+						        <th>&nbsp;</th>
+						        <th>Product</th>
+						        <th>Price</th>
+						        <th>Quantity</th>
+						        <th>Total</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+								<h1>{{ t }}{{ cn }} </h1>
+								{% for i in ci %}
+						      <tr class="text-center">
+						        <td class="cart_delete"><a href="{% url 'cart_delete' i.product.id %}"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><div class="img" style="background-image: url({{i.product.image.url}});"></div></td>
+						        
+						        <td class="product-name">
+									
+						        	<h3>{{i.product.name}}</h3>
+						        	<p>Far far away, behind the word mountains, far from the countries</p>
+						        </td>
+						        
+						        <td class="price">{{i.product.price}}</td>
+						        
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+										<a href="{% url 'addcart' i.product.id %}"><i class='far fa-plus-square' style='font-size:15px'></i>{{i.quantity}} <a href="{% url 'min_cart' i.product.id %}"><i class='far fa-minus-square' style='font: size 15px'></i> </a> 
+										 <i class="fa-solid fa-plus"></i> 
+									<button type="button" style="height:10px;width: 50px;"><a href="{% url 'addcart' i.product.id %}">+</a></button>
+					             	<input type="text" name="quantity" class="quantity form-control input-number" value={{i.quantity}} max="100">
+									<!-- <button type="button" style="height:10px;width: 50px;"><a href="{% url 'min_cart' i.product.id %}">-</a></button> -->
+									<button type="button" style="height:10px;width: 50px;"><a href="{% url 'min_cart' i.product.id %}">-</a></button>
+									
+					          </td>
+						        
+						        <td class="total">{{i.total}}</td>
+						      </tr>
+							  {% endfor %}
+							  <!-- END TR-->
+
+						      <!-- <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><div class="img" style="background-image:url({% static 'images/product-4.jpg' %});"></div></td>
+						        
+						        <td class="product-name">
+						        	<h3>Nike Free RN 2019 iD</h3>
+						        	<p>Far far away, behind the word mountains, far from the countries</p>
+						        </td>
+						        
+						        <td class="price">$15.70</td>
+						        
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+					          	</div>
+					          </td>
+						        
+						        <td class="total">$15.70</td>
+						      </tr>END TR -->
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		<div class="row justify-content-start">
+    			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    					<h3>Cart Totals</h3>
+    					<p class="d-flex">
+    						<span>Subtotal</span>
+    						<span>{{t}}</span>
+    					</p>
+    					<p class="d-flex">
+    						<span>Total Quantitiy</span>
+    						<span>{{cn}}</span>
+    					</p>
+    					<p class="d-flex">
+    						<span>Discount</span>
+    						<span>$3.00</span>
+    					</p>
+    					<hr>
+    					<!-- <p class="d-flex total-price">
+    						<span>Total</span>
+    						<span>{{t}}
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							</span>
+    					</p> -->
+    				</div>
+					
+    				<p class="text-center"><a href="{% url 'checkout' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+					<button id="rzp-button1" class="btn btn-primary py-3 px-4">make a payment</button>
+					
+    			</div>
+    		</div>
+			</div>
+		</section>
+
+
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+		<button id="rzp-button1">Pay with Razorpay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+	var i={{ t }};
+	var x= i * 100;
+var options = {
+    "key": "rzp_test_Wzb0FAlfUbvCpf", // Enter the Key ID generated from the Dashboard
+    "amount": x, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Acme Corp",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    // "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+		
+{% endblock %}

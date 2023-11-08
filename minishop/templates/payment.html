@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-10 ftco-animate">
+
+
+
+    
+        <form method="post" action="payment" class="Bank checkout form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="account-number">Account Number:</label>
+                <input type="text" id="account_number" name="account_number" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name on Card:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="expiration-month">Expiration month:</label>
+                <input type="text" id="expiry-month" name="expiry_month" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" required>
+            </div>
+            <a href="{% url 'pay'}" class="btn btn-primary py-3 px-4">Pay</a>
+
+
+            </div>
+    </form>
+</section>
+
+{% endblock %}
+ 
